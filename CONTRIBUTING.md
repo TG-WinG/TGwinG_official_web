@@ -10,7 +10,7 @@ T.G.winG 웹 프로젝트에 기여하는 방법입니다. **모든 작업은 PR
 ```bash
 # 1. 저장소 클론
 git clone <repo-url>
-cd tgwing-web
+cd TGwinG_official_web
 
 # 2. 최신 main 받기
 git switch main
@@ -18,6 +18,11 @@ git pull origin main
 
 # 3. 작업용 브랜치 생성 (아래 네이밍 규칙 참고)
 git switch -c feat/home-landing
+
+# 4. 의존성 설치 + 로컬 실행
+npm install
+cp .env.example .env.local
+npm run dev
 ```
 
 > Organization 멤버라면 직접 클론, 외부 기여자라면 fork 후 진행합니다.
@@ -72,15 +77,16 @@ design: 랜딩 페이지 날개 애니메이션 적용
 6. merge 방식은 **Squash and merge**를 기본으로 합니다. (커밋 히스토리를 깔끔하게)
 
 ### 작업 경계 (충돌 최소화)
-- 가급적 **페이지/기능 단위**로 브랜치를 나눠 작업합니다. (`pages/` 하위 폴더 단위)
-- 공용 컴포넌트(`components/`)나 공통 설정을 건드릴 땐 미리 팀에 공유합니다.
+- 가급적 **페이지/기능 단위**로 브랜치를 나눠 작업합니다. (`app/` 하위 라우트 단위)
+- 공용 컴포넌트(`components/`)나 공통 설정(`lib/`, `db/`)을 건드릴 땐 미리 팀에 공유합니다.
 - 작업 시작 전 항상 `main`을 최신화하고 브랜치를 만듭니다.
 
 ---
 
-## 5. 이슈 활용
+## 5. 이슈 & 작업 관리
 
-- 새 작업은 가능하면 **이슈를 먼저 생성**하고, 본인을 assignee로 지정합니다.
+- 작업은 **GitHub Issues + Projects(칸반 보드)**로 관리합니다.
+- 새 작업은 가능하면 **이슈를 먼저 생성**하고, 본인을 assignee로 지정한 뒤 칸반의 `In Progress`로 옮깁니다.
 - 중복 작업을 막고 누가 무엇을 하는지 한눈에 보기 위함입니다.
 - PR 설명에 `Closes #이슈번호`를 적으면 merge 시 자동으로 이슈가 닫힙니다.
 
@@ -88,9 +94,22 @@ design: 랜딩 페이지 날개 애니메이션 적용
 
 ## 6. 코드 스타일
 
-- **Frontend**: TypeScript / ESLint + Prettier 설정을 따릅니다. (`npm run lint`)
-- **Backend**: 프로젝트 컨벤션을 따릅니다. (추후 합의)
+- **TypeScript / ESLint + Prettier** 설정을 따릅니다. (`npm run lint`)
 - 포매터가 잡아주는 항목으로 리뷰 시간을 쓰지 않도록, 커밋 전 포맷을 맞춰 주세요.
+- **비밀키·토큰은 절대 커밋 금지.** `.env.local`에만 두고, 새 키가 생기면 `.env.example`에 키 이름만 추가합니다.
+
+---
+
+## 7. 포터빌리티 규칙 (꼭 지킬 것)
+
+최종 호스팅은 쿠러그 자체 서버입니다. 락인되면 이전 시 재작성이 되므로:
+
+| 항목 | 하지 말 것 ❌ | 할 것 ✅ |
+|------|--------------|---------|
+| DB | Supabase Auth/RLS | 순수 Postgres + ORM |
+| 인증 | Supabase Auth | Auth.js GitHub provider |
+| 파일 | R2 전용 API | S3 호환 SDK |
+| 설정 | 하드코딩 | 전부 `.env` |
 
 ---
 
