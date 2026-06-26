@@ -46,7 +46,7 @@ Private (다음 기수):
 - 개발 단계: Vercel (포터블 규칙 준수)
 - 최종: 쿠러그 자체 서버로 Docker 이전 (다음 학기 초)
 - 환경변수·시크릿 관리, DB/파일 백업 (안전장치 R3)
-- 도메인 연결 (`tgwing.khlug.org` 또는 `tgwing.khu.ac.kr`)
+- 도메인 연결 (옵션: tgwing.kr 회수 / khu.ac.kr / dpdns.org / khlug.org / 신규구매 — DECISIONS 7번)
 
 ---
 

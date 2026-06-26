@@ -76,13 +76,15 @@
 
 ## 7. 도메인 `결정필요`
 
-| 옵션 | 방식 | 장점 | 단점 |
-|------|------|------|------|
-| **tgwing.khlug.org ✅** | 쿠러그 서브도메인 | 무료, 기존에 쓰던 방식, 빠름 | 쿠러그 종속 표기 |
-| tgwing.khu.ac.kr | 정보처 신청 | 무료·공식·학교 소유(인계 자동) | 행정 대기, 외부 DNS 허용 확인 필요 |
-| 직접 구매 | Cloudflare 도메인 | 독립 브랜드 | 연 ~1.5만원, 매년 갱신 책임 |
+| 옵션 | 상태 / 등록처 | DNS 관리처 | 장점 | 단점 |
+|------|--------------|-----------|------|------|
+| tgwing.kr (기존 보유) | **살아있음.** 가비아 등록, 등록인 **개인(안병훈)**, ~2032 만료, 현재 AWS 서울으로 연결 | 가비아 (ns1/ns2.hosting.co.kr) | 짧은 공식 .kr, 이미 보유·장기 결제됨 | 개인 명의 → 동아리 공용계정으로 소유권 이전/위임 필요(인계 리스크) |
+| tgwing.khu.ac.kr | 정보처 신청 | 정보처 | 무료·학교 소유(인계 자동) | 행정 대기, 외부 DNS 허용 확인 필요 |
+| tgwing.dpdns.org | DigitalPlat FreeDomain(무료, GitHub PR로 신청) | DigitalPlat(Cloudflare 기반) 포털/PR로 레코드 설정 | 완전 무료·즉시 | 제3자 무료 서비스 의존(중단 리스크), 브랜드 약함 |
+| tgwing.khlug.org | 쿠러그 서브도메인 | 쿠러그 (whois.com NS) | 무료, 기존에 쓰던 방식 | 쿠러그 종속 표기 |
+| 신규 구매 | Cloudflare 등 | 구매처/Cloudflare | 독립 브랜드 자유 | 연 ~1.5만원, 매년 갱신 책임 |
 
-👉 **tgwing.khlug.org로 시작**(행정 대기 없음). 독립 브랜드 원하면 khu.ac.kr 병행.
+👉 결정 전 **tgwing.kr 소유권부터 확인**(안병훈 님 연락 → 공용계정으로 이전/위임 가능한지). 넘겨받으면 짧은 .kr를 이미 보유한 셈이라 유력. 안 되면 khu.ac.kr / dpdns.org / khlug.org / 신규구매 중 택. (참고: FreeDomain — https://github.com/DigitalPlatDev/FreeDomain )
 
 ## 8. 자산 소유 `확정`
 
