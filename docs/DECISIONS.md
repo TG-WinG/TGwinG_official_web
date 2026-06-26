@@ -17,6 +17,29 @@
 
 👉 **Next.js 단일 통합.** 분리는 진짜 필요해질 때. (옛 레포 React+Spring 분리안 폐기)
 
+### 단일레포 ≠ 풀스택 강제 — 폴더 경계로 역할 분리
+
+프론트만 하는 사람도 백엔드 안 건드리고 작업 가능. App Router가 원래 이 분리를 전제로 설계됨.
+
+```
+src/
+├─ app/
+│  ├─ (public)/          # 페이지 (프론트 주력)
+│  └─ api/               # route handlers (백 담당 구역)
+├─ components/           # 프론트 전용 (순수 React, 서버코드 import 금지)
+│  ├─ ui/                # 디자인 시스템
+│  └─ features/          # 도메인 UI
+├─ lib/                  # 백 전용 (DB·인증·R2)
+│  ├─ db/                # Drizzle 스키마·쿼리
+│  ├─ auth.ts            # Auth.js 설정
+│  └─ storage.ts         # R2 클라이언트
+└─ types/                # 공유 계약 (프론트·백 둘 다 import)
+```
+
+- **담당 구역:** 프론트 = `app/` + `components/`, 백 = `lib/` + `app/api/`. 풀스택 한 명이 다 할 필요 없음.
+- **연결 방식:** 백이 `lib/`에 함수 시그니처(빈 구현)만 먼저 박고 `types/`에 계약 정의 → 프론트는 그 타입만 보고 더미 데이터로 UI를 끝까지 완성. 내부 구현(DB 쿼리)은 몰라도 됨.
+- **안전장치:** ESLint `import/no-restricted-paths`로 `components/` → `lib/db`·`lib/auth` import 차단 + 서버 모듈에 `import 'server-only'` → 클라이언트 번들에 새면 빌드 에러.
+
 ## 2. 프레임워크 `확정`
 
 | 옵션 | 스택 | 장점 | 단점 |
