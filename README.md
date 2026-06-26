@@ -1,10 +1,9 @@
 # T.G.winG 공식 웹
 
-T.G.winG 동아리의 공식 웹사이트입니다. 'winG(날개)' 브랜딩과 컴퓨터공학 컨셉을 녹인,
-동아리의 정체성이 되는 홈페이지를 목표로 합니다.
+T.G.winG 동아리의 공식 웹사이트. 'winG(날개)' 브랜딩과 컴퓨터공학 컨셉을 녹인 홈페이지.
 
-> 개발 방식: **MVP 골격을 먼저 구축**한 뒤, 참여자들이 **브랜치 → PR**로 기능을 채워 나갑니다.
-> 협업 규칙은 [CONTRIBUTING.md](./CONTRIBUTING.md), 기술·운영 결정의 *근거와 대안*은 [docs/DECISIONS.md](./docs/DECISIONS.md)를 참고하세요.
+개발 방식: MVP 골격을 먼저 구축한 뒤 브랜치 → PR로 기능을 채운다.
+협업 규칙은 [CONTRIBUTING.md](./CONTRIBUTING.md), 기술·운영 결정의 근거와 대안은 [docs/DECISIONS.md](./docs/DECISIONS.md) 참고.
 
 ## 기술 스택
 
@@ -42,6 +41,11 @@ TGwinG_official_web/
 ├── public/       # 정적 에셋
 └── .github/      # PR / 이슈 템플릿
 ```
+
+## 가용성 / failover
+
+쿠러그 이전 후에도 Vercel 배포를 살려둬 **수동 failover** 대기소로 쓴다. 쿠러그 다운 시 DNS만 Vercel로 돌리면 복구.
+자동 failover는 만들지 않는다(유지보수 부담). 즉시 failover가 필요하면 DB·파일을 매니지드(Supabase/Neon + R2)로 유지해 양쪽이 같은 데이터를 보게 한다. 근거는 [docs/DECISIONS.md](./docs/DECISIONS.md) 15번.
 
 ## 주요 페이지
 
