@@ -38,9 +38,19 @@ GitHub Flow 기준. `main`이 곧 배포본이다.
 | `docs` | 문서 | `docs/readme-update` |
 | `chore` | 설정/빌드 | `chore/eslint-config` |
 
-### 브랜치 보호
-현재 무료 + private이라 보호 규칙을 켤 수 없다. GitHub Education Team 또는 public 전환 후 적용:
-`main` 직접 push 금지 / PR 필수 / 승인 ≥1 / CI(lint·build) 통과 / squash·linear history / force-push·삭제 금지. 그 전까지는 이 문서를 컨벤션으로 운영.
+### 브랜치 보호 (`main`, 적용됨)
+레포가 public이라 보호 규칙이 **실제로 켜져 있다**. 현재 설정:
+
+- PR 필수 (직접 push 금지) · 승인 **≥1**
+- 새 커밋 push 시 기존 승인 자동 해제(stale 리뷰 무효화)
+- linear history 강제 → 머지는 **Squash**(또는 Rebase)만, merge 커밋 금지
+- force-push·브랜치 삭제 금지
+
+아직 **안 켠 것** (필요해지면 추가):
+- **CI 통과 필수(required status check)** — 지금은 CI가 빨개도 머지가 막히지 않는다. CI(아래 8번)가 안정되면 `build` 잡을 required로 지정 권장.
+- 관리자에게도 강제(enforce admins) / 대화(conversation) 해결 필수 / CODEOWNERS 리뷰.
+
+> 설정 위치: GitHub → Settings → Branches → `main` rule (또는 Rulesets).
 
 ---
 
@@ -97,3 +107,14 @@ GitHub Flow 기준. `main`이 곧 배포본이다.
 | 인증 | Supabase Auth | Auth.js GitHub provider |
 | 파일 | R2 전용 API | S3 호환 SDK |
 | 설정 | 하드코딩 | 전부 `.env` |
+
+---
+
+## 8. CI / 자동 배포
+
+PR을 열거나 `main`에 push하면 자동으로 돈다.
+
+- **CI** (GitHub Actions, `.github/workflows/ci.yml`): `npm ci → typecheck → build`. PR마다 자동 실행. 로컬에서 `npm run typecheck && npm run build`로 미리 재현 가능.
+- **CD** (Vercel): PR마다 **프리뷰 배포**, `main` 머지 시 **production 배포** 자동. 스택·도메인·함정은 [docs/DEPLOYMENT.md](./docs/DEPLOYMENT.md).
+
+> CI는 아직 머지 차단(required) 설정이 아니다(§2 참고). 빨간 CI는 머지 전 직접 확인할 것.

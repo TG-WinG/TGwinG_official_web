@@ -64,6 +64,18 @@ curl -sI http://tgwing.dpdns.org # Server: Vercel / DEPLOYMENT_NOT_FOUND 이면 
 
 ---
 
+## CI / Vercel ↔ GitHub 연동
+
+배포 트리거 앞단의 자동화. 협업 규칙 관점 요약은 [CONTRIBUTING.md](../CONTRIBUTING.md) 8번.
+
+- **CI** (`.github/workflows/ci.yml`): PR·`main` push마다 `npm ci → typecheck → build`. GitHub Actions 무료 분량으로 충분.
+- **Vercel 연동**: Vercel 프로젝트가 GitHub repo에 연결돼 있어 push를 자동 감지한다(프리뷰=PR, production=`main`). 별도 deploy 토큰·Actions 단계 없음 — Vercel GitHub App이 처리.
+- **환경변수**: 운영 시크릿(`DATABASE_URL`, GitHub OAuth, R2 키 등)은 **Vercel → Settings → Environment Variables**에 둔다. repo·CI에는 시크릿이 필요 없다(CI는 빌드만; 빌드가 DB 없이 떠야 함 — 린 원칙). 변수 이름은 `.env.example` 기준.
+
+> CI는 아직 머지 차단(required check)이 아니다. 켜는 법·근거는 CONTRIBUTING 2번.
+
+---
+
 ## `tgwing.kr` 전환
 
 Vercel은 프로젝트에 도메인 다중 연결 가능. 코드 변경 0.
