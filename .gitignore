@@ -41,3 +41,7 @@ pnpm-debug.log*
 # ===== 에이전트 도구 (OMC / Claude) =====
 .omc/
 .claude/
+CLAUDE.local.md
+
+# 로컬 전용 문서 (리뷰 보고서·작업 메모 등 — 커밋 안 함)
+docs/local/
