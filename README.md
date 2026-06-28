@@ -72,20 +72,25 @@ DigitalPlat이 DNS 레코드 편집을 안 줘서 네임서버를 Cloudflare로 
 - 공지 / 일정
 - 관리자 페이지
 
-## 로컬 실행
+## 로컬 실행 (비밀키 0개)
 
 ```bash
+git clone <repo>
 npm install
-cp .env.example .env.local   # 값 채우기 (DB·GitHub OAuth·R2)
-npm run dev
+npm run dev          # → http://localhost:3000
 ```
 
-> 아직 골격 구축 단계입니다. 위 명령은 초기 세팅 완료 후 동작합니다.
+비밀키·DB·OAuth 세팅 **없이** 바로 뜹니다. CSS 한 줄 고치려고 인프라를 깔 필요가 없습니다 —
+이게 신입이 첫 PR을 올리는 진입장벽을 없애기 위한 핵심 원칙입니다 (근거: [docs/DECISIONS.md](./docs/DECISIONS.md) §17).
+
+현재 골격은 **린(lean) 랜딩 단계**입니다: 홈 / 프로젝트 / 기술블로그가 `lib/seed.ts`의 예시
+데이터로 렌더됩니다. 실제 Postgres·R2·GitHub OAuth는 *배포 단계*에서만 필요하며, 그때 `.env.example`을
+복사해 채웁니다(`AUTH_DEV_BYPASS=true`로 로컬은 OAuth 없이 가짜 멤버 세션 사용 예정).
 
 ## 작업 관리
 
 세부 작업은 **GitHub Issues + Projects(칸반 보드)**로 관리합니다.
-전체 로드맵은 [docs/ROADMAP.md](./docs/ROADMAP.md)를 참고하세요.
+기술·운영 결정은 [docs/DECISIONS.md](./docs/DECISIONS.md) 단일 문서로 관리합니다.
 
 ## 기여하기
 
