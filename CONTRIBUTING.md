@@ -1,6 +1,15 @@
 # 기여 가이드 (CONTRIBUTING)
 
 모든 작업은 PR(Pull Request)로 진행하며, `main`에는 직접 push하지 않는다.
+모든 참여자는 [행동 강령](./CODE_OF_CONDUCT.md)을 따른다.
+
+---
+
+## 0. 처음이신가요?
+
+- **첫 기여**라면 [`good first issue`](https://github.com/TG-WinG/TGwinG_official_web/labels/good%20first%20issue) 라벨이 붙은 이슈부터 집어보세요. 인프라 세팅 없이(비밀키 0개) 바로 시작할 수 있는 작은 작업들입니다.
+- **막히면 동아리 단톡방에 물어보거나, 회장·교육부장에게 개인적으로 연락하세요.** 또는 이슈에 코멘트.
+- 로컬 실행은 `npm install && npm run dev`면 끝 — 자세한 건 [README](./README.md) "로컬 실행" 참고.
 
 ---
 
