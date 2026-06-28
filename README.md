@@ -2,6 +2,12 @@
 
 T.G.winG 동아리의 공식 웹사이트. 'winG(날개)' 브랜딩과 컴퓨터공학 컨셉을 녹인 홈페이지.
 
+🔗 **배포**: https://tgwing-tg-win-g-official-web.vercel.app
+
+**동아리원이 함께 만들어가는 웹사이트입니다.** 필요한 기능이나 고치고 싶은 이슈가 보이면
+직접 코드를 고치고 PR을 올리세요. 학교 동아리 안에서 **오픈소스 기여를 그대로 체험**하는 게 목표입니다 —
+이슈 잡기 → 브랜치 → PR → 리뷰 → 머지 → 실제 배포까지.
+
 개발 방식: MVP 골격을 먼저 구축한 뒤 브랜치 → PR로 기능을 채운다.
 협업 규칙은 [CONTRIBUTING.md](./CONTRIBUTING.md), 기술·운영 결정의 근거와 대안은 [docs/DECISIONS.md](./docs/DECISIONS.md) 참고.
 
@@ -82,4 +88,8 @@ npm run dev          # → http://localhost:3000
 
 ## 기여하기
 
-이 프로젝트는 PR 기반으로 협업합니다. 처음이라면 [CONTRIBUTING.md](./CONTRIBUTING.md)를 반드시 확인하세요.
+이 프로젝트는 PR 기반으로 협업합니다. **처음이라면 [CONTRIBUTING.md](./CONTRIBUTING.md)를 반드시 확인하세요.**
+
+기여는 거창할 필요 없습니다 — 오타 수정, 문구 다듬기, CSS 한 줄도 환영합니다.
+[Issues](https://github.com/TG-WinG/TGwinG_official_web/issues)에서 할 일을 고르거나, 직접 이슈를 열어 제안하세요.
+로컬 실행에 비밀키가 필요 없으니(위 "로컬 실행" 참고) 클론하고 `npm run dev`만 하면 바로 시작할 수 있습니다.
