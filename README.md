@@ -13,7 +13,8 @@ T.G.winG 동아리의 공식 웹사이트. 'winG(날개)' 브랜딩과 컴퓨터
 | DB | **PostgreSQL** + ORM (Drizzle 또는 Prisma) |
 | 인증 | **Auth.js** (NextAuth) + GitHub OAuth — GitHub Org 멤버십으로 멤버 판정 |
 | 파일 저장 | **Cloudflare R2** (S3 호환 SDK) — 족보 등 |
-| 개발 단계 배포 | **Vercel** |
+| 개발 단계 배포 | **Vercel** (Hobby, 무료) |
+| 도메인 | **`tgwing.dpdns.org`** (임시·무료) → 추후 **`tgwing.kr`** · DNS는 **Cloudflare** |
 | 최종 호스팅 | **쿠러그(KU LUG) 자체 서버** (Docker) — 다음 학기 이전 |
 
 > 별도 백엔드(Spring 등) 없이 **Next.js 하나로** 운영합니다. 기여자가 매학기 바뀌는 동아리에서
@@ -41,6 +42,17 @@ TGwinG_official_web/
 ├── public/       # 정적 에셋
 └── .github/      # PR / 이슈 템플릿
 ```
+
+## 배포 & 도메인
+
+지금 사이트는 **임시 무료 도메인 `tgwing.dpdns.org`**으로 떠 있다. 정식 `tgwing.kr`이 준비되면 갈아탄다.
+
+구조: **등록처(DigitalPlat) → DNS(Cloudflare, 무료) → 호스팅(Vercel, 무료)** 3단.
+DigitalPlat이 DNS 레코드 편집을 안 줘서 네임서버를 Cloudflare로 위임하고, 거기서 A/TXT 레코드를 관리한다.
+`main` 브랜치에 push되면 Vercel이 자동으로 production 배포한다.
+
+> 셋업 단계·함정(프록시 OFF 등)·확인 명령·`tgwing.kr` 전환 절차까지 **초보자용 전체 가이드는
+> [docs/DEPLOYMENT.md](./docs/DEPLOYMENT.md)** 참고. 도메인 선택 근거는 [docs/DECISIONS.md](./docs/DECISIONS.md) 7번.
 
 ## 가용성 / failover
 
