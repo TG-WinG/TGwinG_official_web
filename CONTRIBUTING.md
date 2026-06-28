@@ -29,8 +29,7 @@ git fetch upstream
 git switch -c feat/home-landing upstream/main
 
 npm install
-cp .env.example .env.local   # DB·GitHub OAuth·R2 값 채우기 (없어도 dev는 뜬다)
-npm run dev
+npm run dev          # 비밀키 0개로 바로 뜬다 — .env 복사 불필요 (배포·DB 단계에서만 .env.example 사용)
 ```
 
 > `origin` = 내 포크, `upstream` = 본 레포(`TG-WinG/TGwinG_official_web`).
@@ -93,7 +92,7 @@ GitHub Flow 기준. `main`이 곧 배포본이다.
 
 ### 작업 경계 (충돌 최소화)
 - 페이지/기능 단위로 브랜치를 나눈다 (`app/` 하위 라우트 단위).
-- 공용 컴포넌트(`components/`)·공통 설정(`lib/`, `db/`)을 건드릴 땐 미리 공유.
+- 공용 컴포넌트(`components/`)·공통 설정(`lib/`)을 건드릴 땐 미리 공유.
 - 작업 전 항상 `git fetch upstream` 후 `upstream/main`에서 분기 (로컬 main은 stale일 수 있다).
 
 ---
@@ -108,7 +107,8 @@ GitHub Flow 기준. `main`이 곧 배포본이다.
 
 ## 6. 코드 스타일
 
-- TypeScript / ESLint + Prettier (`npm run lint`). 커밋 전 포맷.
+- TypeScript. 커밋 전 `npm run typecheck`로 타입 확인.
+- ESLint·Prettier·`npm run lint`는 **아직 미설정** — 스캐폴딩 CI 게이트 단계에서 추가([이슈 #23](https://github.com/TG-WinG/TGwinG_official_web/issues/23)). 그때 [DECISIONS §1](./docs/DECISIONS.md)의 `import/no-restricted-paths` 경계도 함께 얹는다.
 - 비밀키·토큰 커밋 금지. `.env.local`에만 두고, 새 키는 `.env.example`에 이름만 추가.
 
 ---
