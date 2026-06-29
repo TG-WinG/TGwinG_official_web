@@ -72,7 +72,7 @@ curl -sI http://tgwing.dpdns.org # Server: Vercel / DEPLOYMENT_NOT_FOUND 이면 
 - **Vercel 연동**: Vercel 프로젝트가 GitHub repo에 연결돼 있어 push를 자동 감지한다(프리뷰=PR, production=`main`). 별도 deploy 토큰·Actions 단계 없음 — Vercel GitHub App이 처리.
 - **환경변수**: 운영 시크릿(`DATABASE_URL`, GitHub OAuth, R2 키 등)은 **Vercel → Settings → Environment Variables**에 둔다. repo·CI에는 시크릿이 필요 없다(CI는 빌드만; 빌드가 DB 없이 떠야 함 — 린 원칙). 변수 이름은 `.env.example` 기준.
 
-> CI는 아직 머지 차단(required check)이 아니다. 켜는 법·근거는 CONTRIBUTING 2번.
+> CI `build` 체크는 머지 차단(required check)으로 켜져 있다 — 빨간 CI는 머지 불가. 상세는 CONTRIBUTING 2번.
 
 ---
 

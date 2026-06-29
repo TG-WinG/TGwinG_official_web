@@ -25,24 +25,25 @@
 
 프론트만 하는 사람도 백엔드 안 건드리고 작업 가능. App Router가 원래 이 분리를 전제로 설계됨.
 
+**목표 구조(Phase 2까지 포함, 루트 기준 — `src/` 안 씀).** 현재 린 랜딩 단계는 이 중 `app/` · `components/` · `lib/`(utils·seed)만 존재하고, 나머지는 각 기능 PR에서 추가된다.
+
 ```
-src/
-├─ app/
-│  ├─ (public)/          # 페이지 (프론트 주력)
-│  └─ api/               # route handlers (백 담당 구역)
-├─ components/           # 프론트 전용 (순수 React, 서버코드 import 금지)
-│  ├─ ui/                # 디자인 시스템
-│  └─ features/          # 도메인 UI
-├─ lib/                  # 백 전용 (DB·인증·R2)
-│  ├─ db/                # Drizzle 스키마·쿼리
-│  ├─ auth.ts            # Auth.js 설정
-│  └─ storage.ts         # R2 클라이언트
-└─ types/                # 공유 계약 (프론트·백 둘 다 import)
+app/
+├─ (public)/             # 페이지 (프론트 주력)
+└─ api/                  # route handlers (백 담당 구역)        — Phase 2
+components/              # 프론트 전용 (순수 React, 서버코드 import 금지)
+├─ ui/                   # 디자인 시스템
+└─ features/             # 도메인 UI
+lib/                     # 백 전용 — 현재는 utils·seed만
+├─ db/                   # Drizzle 스키마·쿼리                  — Phase 2
+├─ auth.ts               # Auth.js 설정                        — Phase 2
+└─ storage.ts            # R2 클라이언트                        — Phase 2
+types/                   # 공유 계약 (프론트·백 둘 다 import)    — Phase 2
 ```
 
 - **담당 구역:** 프론트 = `app/` + `components/`, 백 = `lib/` + `app/api/`. 풀스택 한 명이 다 할 필요 없음.
-- **연결 방식:** 백이 `lib/`에 함수 시그니처(빈 구현)만 먼저 박고 `types/`에 계약 정의 → 프론트는 그 타입만 보고 더미 데이터로 UI를 끝까지 완성. 내부 구현(DB 쿼리)은 몰라도 됨.
-- **안전장치:** ESLint `import/no-restricted-paths`로 `components/` → `lib/db`·`lib/auth` import 차단 + 서버 모듈에 `import 'server-only'` → 클라이언트 번들에 새면 빌드 에러.
+- **연결 방식:** 백이 `lib/`에 함수 시그니처(빈 구현)만 먼저 박고 `types/`에 계약 정의 → 프론트는 그 타입만 보고 더미 데이터로 UI를 끝까지 완성. 내부 구현(DB 쿼리)은 몰라도 됨. (현재 `Project`·`BlogPost` 타입은 `lib/seed.ts`에 있고, `types/`는 DB가 붙는 PR에서 분리한다.)
+- **안전장치(Phase 2 도입 — 아직 미설정):** `lib/db`·`lib/auth`를 추가하는 PR에서 ESLint `import/no-restricted-paths`로 `components/` → `lib/db`·`lib/auth` import를 차단하고, 서버 모듈에 `import 'server-only'`를 넣어 클라이언트 번들 누출 시 빌드가 깨지게 한다(이슈 #23 CI 게이트와 함께). 현재는 백엔드 모듈이 없어 강제 대상도 없다.
 
 ## 2. 프레임워크 `확정`
 
@@ -175,7 +176,7 @@ src/
 | AGPL | 강한 카피레프트 | 변형도 공개 강제 | 기여·재사용 장벽↑ |
 
 > 공개 레포 자체는 무료 — 비용은 트래픽·용량이 정하지 레포 공개 여부와 무관. 비밀키는 커밋 금지, `.env.example`만.
-> ⚠️ 현재 레포 private. 공개(오픈소스) 여부는 선행 결정 — public 안 가면 MIT/오픈소스 항목 보류.
+> ✅ **반영(2026-06-29): 레포 public 전환 완료, `LICENSE`에 MIT 적용.** 이로써 MIT·오픈소스 기여 흐름(11번) 가동.
 
 | 안전장치 | 내용 | 비용 | 효과 |
 |----------|------|------|------|
@@ -209,8 +210,7 @@ src/
 
 > 회의 합의(2026-06-26) 워크플로: 스캐폴딩 후 feature 브랜치에서 작업 → PR. 브랜치마다 Vercel 미리보기 빌드로 검토 → 통과하면 main에 머지. 스캐폴딩 완성 전에 각자 따로 코드를 더 만들면 나중에 통합이 힘드니, 레포 스캐폴딩이 올라온 뒤 그 위에서 작업할 것.
 
-보호 규칙: **무료 private이라 지금은 못 켬.** GitHub Education Team(추천) 또는 public 전환 후 적용 →
-main 직접 push 금지 / PR 필수 / 승인 ≥1 / CI(lint·build) 통과 / squash·linear / force-push·삭제 금지.
+보호 규칙: ✅ **켜짐(2026-06-29, public 전환 후 적용).** `main` 직접 push 금지 / PR 필수 / 승인 ≥1 / stale 리뷰 무효화 / CI `build` required(머지 차단) / squash·linear / force-push·삭제 금지. 운영 규칙 상세는 [CONTRIBUTING.md](../CONTRIBUTING.md) 2번.
 
 ## 15. 가용성 / failover `확정`
 
@@ -241,18 +241,19 @@ main 직접 push 금지 / PR 필수 / 승인 ≥1 / CI(lint·build) 통과 / squ
 
 **리뷰 최우선 지적(2026-06-28, 권구현 확정).** 멤버 PR 기여(11번)의 최대 진입장벽 = "CSS 한 줄 고치려 해도 Postgres·R2·GitHub OAuth를 다 세팅해야 `npm run dev`가 뜬다." **초보 신입이 이 벽을 못 넘으면 11번 전략(오픈소스 → 멤버 PR) 자체가 무너진다.** → 목표: **clone 후 비밀키 0개로 5분 안에 사이트가 뜬다.**
 
-스캐폴딩 시 반드시 만족(= 스캐폴딩 "완료"의 정의):
+**현 단계(린 랜딩)는 이미 충족됨:** `git clone && npm install && npm run dev` → 비밀키·복사 0개로 홈/프로젝트/블로그가 `lib/seed.ts` 더미 데이터로 뜬다. (아래 명령·스크립트는 아직 없다.)
 
-| 항목 | 방식 | 효과 |
+아래는 **DB·인증·스토리지가 붙는 중간 단계에서** 유지할 목표(= 그 단계 스캐폴딩 "완료"의 정의). 명령·스크립트는 해당 PR에서 생긴다:
+
+| 항목 | 방식 (Phase 2) | 효과 |
 |------|------|------|
-| **원커맨드 부팅** | `cp .env.example .env && docker compose up -d db && npm run dev` (또는 `npm run setup` 한 방) | 실키 없이 바로 실행 |
+| **원커맨드 부팅** | `npm run setup` 한 방 (또는 `docker compose up -d db && npm run dev`) | 실키 없이 바로 실행 |
 | **로컬 DB** | docker-compose Postgres + `npm run seed`(가짜 프로젝트·블로그 데이터) | Supabase 계정 불필요, 빈 화면 방지 |
-| **인증 우회** | `AUTH_DEV_BYPASS=true`(.env.example 기본값) → 가짜 멤버 세션 | GitHub OAuth 앱·시크릿 불필요 |
-| **저장소 우회** | dev에선 업로드를 로컬 `./uploads`(또는 public/)에 기록 | R2 키 불필요 |
-| **.env.example가 곧 동작** | dev 기본값 다 채워둠, 실키 칸만 비움 | 복사하면 끝, 시크릿 0개 |
-| **good first issue** | CONTRIBUTING에 위 퀵스타트 + 라벨 | 신입 첫 PR 경로 명시 |
+| **인증 우회** | `AUTH_DEV_BYPASS=true`(.env.example) → 가짜 멤버 세션 | GitHub OAuth 앱·시크릿 불필요 |
+| **저장소 우회** | dev에선 업로드를 로컬 `./uploads`에 기록(`.gitignore`에 추가) | R2 키 불필요 |
+| **good first issue** | CONTRIBUTING 퀵스타트 + 라벨 | 신입 첫 PR 경로 명시 |
 
-원칙: **실제 Postgres/R2/GitHub OAuth는 배포(Vercel·쿠러그)에서만 필수.** 로컬 기여자가 프론트·콘텐츠만 만질 땐 인프라 세팅 0. (docker조차 부담이면 프론트 전용 mock 데이터 모드도 검토하되, docker Postgres가 기본선.)
+원칙: **실제 Postgres/R2/GitHub OAuth는 배포(Vercel·쿠러그)에서만 필수.** 로컬에서 프론트·콘텐츠만 만질 땐 **인프라 세팅 0(mock 기본 경로)**이 기본선이고, docker DB는 백엔드 작업자에게만 선택적으로 둔다.
 
 ---
 
@@ -260,4 +261,6 @@ main 직접 push 금지 / PR 필수 / 승인 ≥1 / CI(lint·build) 통과 / squ
 대부분 5주차 회의(2026-06-26)에서 합의 완료. **남은 미정:**
 - **도메인** — tgwing.kr 소유권 이전 가능 여부(보유자 연락 결과 대기)
 - **담당자 배정**(16번) — 보류, 스캐폴딩 안 막음(총괄 임시 권구현). 7/5에 백업 담당만 정함
-- **레포 공개(오픈소스) 시점** — public 전환 여부(MIT·보호규칙의 선행 조건)
+
+**해결됨:**
+- ~~레포 공개(오픈소스) 시점~~ → 2026-06-29 public 전환 + MIT 적용 완료(12·14번).

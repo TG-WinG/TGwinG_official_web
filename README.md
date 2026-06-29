@@ -30,13 +30,14 @@ T.G.winG 동아리의 공식 웹사이트. 'winG(날개)' 브랜딩과 컴퓨터
 ## 프로젝트 구조
 
 ```
-TGwinG_official_web/
-├── app/          # Next.js App Router (페이지 + API Routes)
-├── components/   # 공용 컴포넌트
-├── lib/          # DB · 인증 · 스토리지 클라이언트
-├── db/           # 스키마 · 마이그레이션 (ORM)
-├── public/       # 정적 에셋
-└── .github/      # PR / 이슈 템플릿
+TGwinG_official_web/        # 현재 (린 랜딩 단계)
+├── app/          # Next.js App Router (페이지 + 향후 API Routes)
+├── components/   # 공용 컴포넌트 (ui/ = 디자인 시스템)
+├── lib/          # 공용 유틸 + 더미 seed (향후 DB·인증·스토리지 클라이언트)
+├── docs/         # 기술·운영 결정(DECISIONS) · 배포 가이드(DEPLOYMENT)
+└── .github/      # CI 워크플로 · PR / 이슈 템플릿
+
+# Phase 2에서 추가: db/(스키마·마이그레이션) · public/(정적 에셋) · types/(공유 계약)
 ```
 
 ## 배포 & 도메인
