@@ -95,6 +95,11 @@ GitHub Flow 기준. `main`이 곧 배포본이다.
 - 공용 컴포넌트(`components/`)·공통 설정(`lib/`)을 건드릴 땐 미리 공유.
 - 작업 전 항상 `git fetch upstream` 후 `upstream/main`에서 분기 (로컬 main은 stale일 수 있다).
 
+### 디자인 변경 PR (`design/*`)
+화면이 바뀌는 PR은 위 규칙에 더해:
+1. **로컬 빌드 후 확인** — `npm run build && npm run start`로 실제 화면을 띄워보고, 창을 줄여 **반응형까지** 확인한다.
+2. **as-is / to-be 스크린샷 2장 첨부** — PR 본문에 변경 전(as-is)·후(to-be) 이미지를 나란히 올린다. (텍스트 설명만으론 리뷰가 안 된다)
+
 ---
 
 ## 5. 이슈 & 작업 관리
@@ -131,6 +136,6 @@ GitHub Flow 기준. `main`이 곧 배포본이다.
 PR을 열거나 `main`에 push하면 자동으로 돈다.
 
 - **CI** (GitHub Actions, `.github/workflows/ci.yml`): `npm ci → typecheck → build`. PR마다 자동 실행. 로컬에서 `npm run typecheck && npm run build`로 미리 재현 가능.
-- **CD** (Vercel): PR마다 **프리뷰 배포**, `main` 머지 시 **production 배포** 자동. 스택·도메인·함정은 [docs/DEPLOYMENT.md](./docs/DEPLOYMENT.md).
+- **CD** (Vercel): `main` 머지 시 **production 배포** 자동. fork PR 프리뷰는 보안상 관리자 Vercel 승인이 있어야 생성된다(자동 아님) — 리뷰용 화면은 PR 본문의 as-is/to-be 스크린샷(§4)으로 갈음한다. 스택·도메인·함정은 [docs/DEPLOYMENT.md](./docs/DEPLOYMENT.md).
 
 > CI `build` 잡은 머지 차단(required check)으로 켜져 있다(§2 참고). 빨간 CI는 머지 불가 — 로컬에서 미리 재현해 고칠 것.
