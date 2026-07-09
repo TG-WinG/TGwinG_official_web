@@ -30,6 +30,11 @@ pnpm-debug.log*
 .env
 .env*.local
 
+# ===== 로컬 업로드 (dev 스토리지 우회) =====
+# public/uploads 에 저장된 업로드 파일은 커밋 안 함 (.gitkeep만 유지)
+/public/uploads/*
+!/public/uploads/.gitkeep
+
 # ===== 배포 =====
 .vercel
 
