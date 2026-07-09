@@ -48,6 +48,9 @@ TGwinG_official_web/        # 현재 (린 랜딩 단계)
 DigitalPlat이 DNS 레코드 편집을 안 줘서 네임서버를 Cloudflare로 위임하고, 거기서 A/TXT 레코드를 관리한다.
 `main` 브랜치에 push되면 Vercel이 자동으로 production 배포한다.
 
+**PR 미리보기(preview) 배포**는 관리자(@guhyun9454)의 Vercel 인증이 필요해 자동으로 뜨지 않는다.
+화면으로 확인이 필요한 PR이면 `@guhyun9454`를 태그해 요청하면 관리자가 미리보기를 띄워준다.
+
 > 셋업 단계·함정(프록시 OFF 등)·확인 명령·`tgwing.kr` 전환 절차까지 **초보자용 전체 가이드는
 > [docs/DEPLOYMENT.md](./docs/DEPLOYMENT.md)** 참고. 도메인 선택 근거는 [docs/DECISIONS.md](./docs/DECISIONS.md) 7번.
 

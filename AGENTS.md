@@ -9,6 +9,7 @@ T.G.winG 웹 — 에이전트·기여자 공통 규칙.
 - **stale 로컬에서 push/PR 금지.** squash 머지된 브랜치는 로컬에 옛 커밋이 남아도 내용은 이미 `upstream/main`에 있다 — PR 만들기 전 `git diff upstream/main..HEAD`로 실제 차이를 확인한다.
 - **PR**: 포크 브랜치 → `upstream/main`, **작은 포커스 단위**로 하나씩.
 - **비밀키 커밋 금지** — `.env.example`에 이름만 올린다.
+- **미리보기(preview) 배포**: Vercel 프리뷰는 관리자(@guhyun9454) 계정 인증이 필요하다. 화면 확인이 필요한 PR이면 `@guhyun9454`를 태그해 요청하면 관리자가 프리뷰를 띄워준다.
 
 ## 가드레일
 
