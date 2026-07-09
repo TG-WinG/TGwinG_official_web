@@ -78,8 +78,10 @@ npm run dev          # → http://localhost:3000
 ```
 
 비밀키·DB·OAuth 세팅 **없이** 바로 뜹니다(신입의 첫 PR 진입장벽 제거).
-현재는 **린 랜딩 단계**로 홈 / 프로젝트 / 기술블로그가 `lib/seed.ts`의 예시 데이터로 렌더되며,
-실제 Postgres·R2·GitHub OAuth는 *배포 단계*에서 `.env.example`을 복사해 채웁니다.
+로컬에서는 **dev bypass**로 가짜 멤버 세션이 자동 로그인되고(`AUTH_DEV_BYPASS`, 헤더에 표시),
+업로드는 `public/uploads/`에 저장되어 R2 키가 필요 없습니다.
+홈 / 프로젝트 / 기술블로그는 `lib/seed.ts`의 예시 데이터로 렌더됩니다.
+실제 Postgres·R2·GitHub OAuth는 *배포 단계*에서만 필요하며 `.env.example`을 복사해 채웁니다.
 
 ## 작업 관리
 
