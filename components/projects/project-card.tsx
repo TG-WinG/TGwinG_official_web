@@ -4,16 +4,22 @@ import { cn } from "@/lib/utils";
 
 type ProjectCardProps = {
   project: Project;
+  displayNumber: number;
   isActive?: boolean;
   className?: string;
   onClick?: () => void;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
 };
 
 export function ProjectCard({
   project,
+  displayNumber,
   isActive = false,
   className,
   onClick,
+  onMouseEnter,
+  onMouseLeave,
 }: ProjectCardProps) {
   return (
     <button
@@ -21,25 +27,29 @@ export function ProjectCard({
       className="h-full w-full"
       aria-pressed={isActive}
       onClick={onClick}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
     >
       <Card
         className={cn(
-          "flex h-full w-full items-center justify-center",
-          "rounded-none border-slate-300 bg-white p-0 shadow-none",
-          "cursor-pointer hover:shadow-none",
-          isActive && "border-slate-900 bg-[#FFF7CC]",
+          "flex h-full w-full items-start justify-start",
+          "rounded-none border-slate-300 bg-white p-[15px] shadow-none",
+          "cursor-pointer hover:bg-[#FFFEC9] hover:shadow-none",
           className,
+          isActive && "bg-[#FFFEC9]",
         )}
       >
         <span
-          className="overflow-hidden text-ellipsis whitespace-nowrap px-2"
+          className="overflow-hidden text-ellipsis whitespace-nowrap"
           style={{
-            fontFamily: "Dotum, sans-serif",
-            fontSize: 18,
-            lineHeight: 1.25,
+            fontFamily: '"Anonymous Pro", monospace',
+            fontSize: 20,
+            fontStyle: "normal",
+            fontWeight: 700,
+            lineHeight: 1,
           }}
         >
-          {project.title}
+          {displayNumber} {project.slug}
         </span>
       </Card>
     </button>
