@@ -14,13 +14,13 @@ export default function ProjectsPage() {
       <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {projects.map((p) => (
           <Card key={p.slug}>
-            <h2 className="font-semibold">{p.title}</h2>
+            <h2 className="font-bold">{p.title}</h2>
             <p className="mt-1 text-sm text-muted-foreground">{p.summary}</p>
             <div className="mt-3 flex flex-wrap gap-1.5">
               {p.stack.map((s) => (
                 <span
                   key={s}
-                  className="rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground"
+                  className="border border-border bg-muted px-2 py-0.5 text-xs text-muted-foreground"
                 >
                   {s}
                 </span>

@@ -18,13 +18,13 @@ export default function BlogPage() {
               {post.tags.map((t) => (
                 <span
                   key={t}
-                  className="rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground"
+                  className="border border-border bg-muted px-2 py-0.5 text-xs text-muted-foreground"
                 >
                   #{t}
                 </span>
               ))}
             </div>
-            <h2 className="mt-2 font-semibold">{post.title}</h2>
+            <h2 className="mt-2 font-bold">{post.title}</h2>
             <p className="mt-1 text-sm text-muted-foreground">{post.excerpt}</p>
             <p className="mt-3 text-xs text-muted-foreground">
               {post.author} · {post.date}
