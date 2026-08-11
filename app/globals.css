@@ -1,32 +1,114 @@
 @import "tailwindcss";
 
-/* winG 브랜드 토큰 — 디자인팀이 색·폰트를 여기서 교체한다 (DECISIONS §16) */
+/* ═══════════════════════════════════════════════════════════════════════
+   T.G.winG 디자인 토큰 — 출처: Figma "TGwing" (DECISIONS §18, 이슈 #10)
+
+   레이어는 2단이다.
+   1) 원시 팔레트 — 피그마에서 그대로 뽑은 값. 이름이 "무슨 색인지"를 말한다.
+   2) 시맨틱 토큰 — "어디에 쓰는 색인지"를 말한다. 컴포넌트는 이것만 쓴다.
+
+   색·폰트를 바꿀 때는 (1)만 건드린다. (2)와 컴포넌트는 손대지 않는다.
+   컴포넌트에 raw hex(#da0f0f 같은 값)를 직접 쓰지 않는다.
+   ═══════════════════════════════════════════════════════════════════════ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #0a0a0a;
-  --brand: #4f46e5; /* winG primary (indigo) — 임시값, 디자인팀 확정 전까지 */
-  --brand-foreground: #ffffff;
-  --accent: #0ea5e9;
-  --muted: #f4f4f5;
-  --muted-foreground: #6b7280;
-  --card: #ffffff;
-  --border: #e5e7eb;
+  /* ── 1) 원시 팔레트 ────────────────────────────────────────────────── */
+  --paper: #fcfcfc; /* 종이 바탕 */
+  --ink: #292929; /* 잉크(검정 대신 — 진짜 #000은 안 쓴다) */
+  --red: #da0f0f; /* 도장/펜 빨강 — 브랜드 강조 */
+  --marker: #fffec9; /* 형광펜 노랑 — 페이지 제목 밑줄 */
+
+  /* ── 2) 시맨틱 토큰 ────────────────────────────────────────────────── */
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card: var(--paper);
+
+  --brand: var(--red);
+  --brand-foreground: var(--paper);
+
+  --accent: var(--marker); /* 형광펜 하이라이트 배경 */
+  --accent-foreground: var(--ink);
+
+  /* 본문 보조 텍스트. 피그마에는 이 색이 없다 — 보조 텍스트(yyyy.mm.dd update)를
+     불투명 --ink로 쓰고 위계를 크기·위치로 줬다. 웹에선 구분이 필요해 0.65
+     (대비 4.6:1, WCAG AA)로 채운 잠정값이고, 디자인 확정 시 교체한다.
+     아래 --ghost의 0.16을 여기 쓰면 대비 1.36:1이라 읽히지 않는다. (DECISIONS §18) */
+  --muted-foreground: color-mix(in srgb, var(--ink) 65%, transparent);
+  /* 피그마 원값 — CATEGORY 목록의 비활성 항목에 쓰인 색. 읽는 텍스트에는 쓰지 않는다. */
+  --ghost: color-mix(in srgb, var(--ink) 16%, transparent);
+
+  --border: var(--ink); /* 구조선 (박스 테두리) */
+  --border-accent: var(--red); /* 강조선 (구분선·활성 테두리) */
+
+  /* ── 형태·깊이 ─────────────────────────────────────────────────────── */
+  --radius: 0px; /* 디자인의 박스는 각져 있다 */
+  --panel-shadow: 4px 0 12px rgb(0 0 0 / 0.25); /* 좌측 사이드바 */
+  --marker-shadow: 0 0 4px rgb(0 0 0 / 0.25); /* 형광펜 자국 */
 }
 
+/* 다크모드는 v1 범위 밖(이슈 #10). 켤 때 아래 주석만 풀고 원시 팔레트
+   4개만 뒤집으면 된다 — 시맨틱 토큰과 컴포넌트는 그대로 둔다.
+   (값은 아직 디자인팀 미확정이라 예시다.)
+
+:root[data-theme="dark"] {
+  --paper: #1a1a1a;
+  --ink: #ededed;
+  --red: #ff6b6b;
+  --marker: #4a4520;
+}
+*/
+
 @theme inline {
+  /* 색 — 여기 이름이 곧 유틸리티 클래스다 (bg-brand, text-ghost, border-accent …) */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-card: var(--card);
   --color-brand: var(--brand);
   --color-brand-foreground: var(--brand-foreground);
   --color-accent: var(--accent);
-  --color-muted: var(--muted);
+  --color-accent-foreground: var(--accent-foreground);
   --color-muted-foreground: var(--muted-foreground);
-  --color-card: var(--card);
+  --color-ghost: var(--ghost);
   --color-border: var(--border);
-  /* 시스템 폰트 — 오프라인/학교망에서도 폰트 네트워크 fetch 없이 즉시 부팅 (한글 포함) */
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
-    "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+  --color-border-accent: var(--border-accent);
+
+  /* 폰트 — Anonymous Pro(피그마 지정)는 한글 글리프가 없다.
+     한글은 뒤의 시스템 고딕이 받는다. next/font가 라틴을 self-host 한다. */
+  --font-sans: var(--font-anonymous-pro), ui-monospace, "Apple SD Gothic Neo",
+    "Noto Sans KR", "Malgun Gothic", sans-serif;
+  --font-mono: var(--font-anonymous-pro), ui-monospace, SFMono-Regular, Menlo,
+    monospace;
+
+  /* 타이포 스케일 — ★ 표시는 피그마에 실제로 쓰인 크기 */
+  --text-xs: 0.875rem; /* 14 */
+  --text-xs--line-height: 1.5;
+  --text-sm: 1rem; /* 16 */
+  --text-sm--line-height: 1.6;
+  --text-base: 1.25rem; /* 20 ★ 본문 */
+  --text-base--line-height: 1.6;
+  --text-lg: 1.5rem; /* 24 */
+  --text-lg--line-height: 1.5;
+  --text-xl: 1.75rem; /* 28 ★ 항목 제목·연도·카테고리 */
+  --text-xl--line-height: 1.35;
+  --text-2xl: 2rem; /* 32 ★ 페이지 제목·번호 */
+  --text-2xl--line-height: 1.25;
+  --text-3xl: 2.5rem; /* 40 ★ 카드 제목 */
+  --text-3xl--line-height: 1.2;
+  --text-4xl: 3.5rem; /* 56 */
+  --text-4xl--line-height: 1.1;
+  --text-5xl: 5rem; /* 80 */
+  --text-5xl--line-height: 1;
+
+  /* 굵기는 Regular(400)/Bold(700) 두 단만 쓴다 — next/font에서 그 둘만 받는다.
+     font-medium·font-semibold는 Anonymous Pro에 없어 가짜로 뭉개지니 쓰지 않는다. */
+
+  /* 형태·깊이 */
+  --radius-sm: var(--radius);
+  --radius-md: var(--radius);
+  --radius-lg: var(--radius);
+  --radius-xl: var(--radius);
+  --shadow-panel: var(--panel-shadow);
+  --shadow-marker: var(--marker-shadow);
 }
 
 body {
