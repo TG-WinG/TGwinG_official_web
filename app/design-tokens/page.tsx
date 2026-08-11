@@ -32,12 +32,6 @@ const swatches = [
     use: "형광펜 하이라이트",
   },
   {
-    cls: "bg-muted",
-    name: "muted",
-    token: "--muted ← --paper-shade",
-    use: "hover 배경·태그 칩",
-  },
-  {
     cls: "bg-muted-foreground",
     name: "muted-foreground",
     token: "--muted-foreground",
@@ -99,10 +93,13 @@ export default function DesignTokensPage() {
       </h1>
       <p className="mt-4 max-w-2xl text-sm text-muted-foreground">
         출처: Figma &ldquo;TGwing&rdquo;. 색·폰트를 바꿀 때는{" "}
-        <code className="bg-muted px-1">app/globals.css</code>의 원시 팔레트
-        5개(<code className="bg-muted px-1">--paper --ink --red --marker
-        --paper-shade</code>)만 고친다. 이 페이지에는 raw hex가 없으므로, 그
-        5줄만 바꾸면 아래 전체가 따라 바뀐다.
+        <code className="border border-border px-1">app/globals.css</code>의 원시
+        팔레트 4개(
+        <code className="border border-border px-1">
+          --paper --ink --red --marker
+        </code>
+        )만 고친다. 이 페이지에는 raw hex가 없으므로, 그 4줄만 바꾸면 아래 전체가
+        따라 바뀐다.
       </p>
 
       <Section title="1. 색">
@@ -188,8 +185,10 @@ export default function DesignTokensPage() {
       <Section title="4. 다크모드">
         <p className="max-w-2xl text-sm text-muted-foreground">
           v1 범위 밖(이슈 #10). 켤 때는 globals.css 하단의 주석 처리된{" "}
-          <code className="bg-muted px-1">:root[data-theme=&quot;dark&quot;]</code>{" "}
-          블록만 풀고 원시 팔레트 5개를 뒤집으면 된다. 시맨틱 토큰과 컴포넌트는
+          <code className="border border-border px-1">
+            :root[data-theme=&quot;dark&quot;]
+          </code>{" "}
+          블록만 풀고 원시 팔레트 4개를 뒤집으면 된다. 시맨틱 토큰과 컴포넌트는
           손대지 않는다.
         </p>
       </Section>

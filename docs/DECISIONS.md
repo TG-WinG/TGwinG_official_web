@@ -265,10 +265,10 @@ types/                   # 공유 계약 (프론트·백 둘 다 import)    — 
 
 | 레이어 | 파일 위치 | 바꿔도 되나 |
 |--------|-----------|-------------|
-| **원시 팔레트** `--paper --ink --red --marker --paper-shade` | `app/globals.css` `:root` 상단 | ✅ 색을 바꿀 땐 **여기 5줄만** |
+| **원시 팔레트** `--paper --ink --red --marker` | `app/globals.css` `:root` 상단 | ✅ 색을 바꿀 땐 **여기 4줄만** |
 | **시맨틱 토큰** `--background --brand --accent --muted-foreground --ghost --border …` | 그 아래 | ❌ 용도가 바뀔 때만 |
 
-컴포넌트에 raw hex를 쓰지 않는다. 확인은 `/design-tokens` 페이지에서 한다 — 그 페이지에 hex가 0개라, 5줄만 바꾸면 전체가 따라 바뀌는 걸 눈으로 볼 수 있다.
+컴포넌트에 raw hex를 쓰지 않는다. 확인은 `/design-tokens` 페이지에서 한다 — 그 페이지에 hex가 0개라, 4줄만 바꾸면 전체가 따라 바뀌는 걸 눈으로 볼 수 있다.
 
 ### 값
 
@@ -278,7 +278,6 @@ types/                   # 공유 계약 (프론트·백 둘 다 import)    — 
 | `--ink` | `#292929` | 본문·구조선 (진짜 `#000`은 안 쓴다) |
 | `--red` | `#da0f0f` | 강조·활성 상태·구분선 |
 | `--marker` | `#fffec9` | 형광펜 하이라이트 |
-| `--paper-shade` | `#f2f2f2` | hover 배경·태그 칩 |
 
 **타이포**: Anonymous Pro (Regular 400 / Bold 700). 피그마 실사용 크기 20/28/32/40px → `text-base`/`text-xl`/`text-2xl`/`text-3xl`에 맞췄다.
 
@@ -288,7 +287,9 @@ types/                   # 공유 계약 (프론트·백 둘 다 import)    — 
 2. **폰트는 `next/font/google`.** 빌드 때 받아 self-host 하므로 브라우저 런타임 요청은 0이다. 레포에 바이너리를 안 넣는 대신 **최초 빌드에 네트워크가 필요**하다 — 완전 오프라인 빌드가 필요해지면 woff2를 커밋하고 `next/font/local`로 바꾼다(Anonymous Pro는 OFL이라 재배포 가능).
 3. **Anonymous Pro에는 한글 글리프가 없다.** 한글은 시스템 고딕 폴백이 받는다 — 라틴/한글이 섞이면 두 폰트가 같이 보이는 게 정상이고, 피그마 시안도 그렇다.
 
-**다크모드는 v1 범위 밖**(이슈 #10). `globals.css` 하단에 주석 처리된 `:root[data-theme="dark"]` 블록을 뒀다 — 켤 땐 주석만 풀고 원시 팔레트 5개를 뒤집으면 되고, 시맨틱 토큰·컴포넌트는 손대지 않는다.
+**다크모드는 v1 범위 밖**(이슈 #10). `globals.css` 하단에 주석 처리된 `:root[data-theme="dark"]` 블록을 뒀다 — 켤 땐 주석만 풀고 원시 팔레트 4개를 뒤집으면 되고, 시맨틱 토큰·컴포넌트는 손대지 않는다.
+
+**`--paper-shade`는 뺐다.** 원래 `--muted`(hover 배경·태그 칩)의 출처였는데, 디자인 개편이 예정돼 있어 `--paper-shade`·`--muted`·`--color-muted`를 함께 지우고 그 자리는 전부 `bg-background`로 되돌렸다. 즉 **면으로 구분하던 걸 지금은 테두리(`--border`)만으로 구분한다.** 새 디자인에서 다시 톤 차이가 필요해지면 원시 팔레트에 색을 추가하고 `--muted`를 되살리는 순서로 넣는다. `--muted-foreground`는 `--ink` 기반이라 이 변경과 무관하게 그대로 있다.
 
 ---
 

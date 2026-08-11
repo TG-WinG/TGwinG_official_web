@@ -20,7 +20,7 @@ export default function ProjectsPage() {
               {p.stack.map((s) => (
                 <span
                   key={s}
-                  className="border border-border bg-muted px-2 py-0.5 text-xs text-muted-foreground"
+                  className="border border-border bg-background px-2 py-0.5 text-xs text-muted-foreground"
                 >
                   {s}
                 </span>

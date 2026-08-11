@@ -32,7 +32,7 @@ T.G.winG 동아리의 공식 웹사이트. 'winG(날개)' 브랜딩과 컴퓨터
 ```
 TGwinG_official_web/        # 현재 (린 랜딩 단계)
 ├── app/          # Next.js App Router (페이지 + 향후 API Routes)
-│   └── globals.css   # 디자인 토큰 — 색을 바꿀 땐 여기 원시 팔레트 5줄만 (DECISIONS §18)
+│   └── globals.css   # 디자인 토큰 — 색을 바꿀 땐 여기 원시 팔레트 4줄만 (DECISIONS §18)
 ├── components/   # 공용 컴포넌트 (ui/ = 디자인 시스템)
 ├── lib/          # 공용 유틸 + 더미 seed (향후 DB·인증·스토리지 클라이언트)
 ├── docs/         # 기술·운영 결정(DECISIONS) · 배포 가이드(DEPLOYMENT)
