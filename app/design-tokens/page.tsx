@@ -35,13 +35,13 @@ const swatches = [
     cls: "bg-muted-foreground",
     name: "muted-foreground",
     token: "--muted-foreground",
-    use: "보조 텍스트 (대비 4.6:1)",
+    use: "보조 텍스트 (4.6:1) — 피그마 미지정, 잠정값",
   },
   {
     cls: "bg-ghost",
     name: "ghost",
     token: "--ghost",
-    use: "비활성 목록 전용 (읽는 텍스트 금지)",
+    use: "피그마 원값 — 비활성 목록 전용 (읽는 텍스트 금지)",
   },
 ];
 
