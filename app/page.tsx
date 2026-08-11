@@ -23,7 +23,7 @@ export default function Home() {
           </Link>
           <Link
             href="/blog"
-            className="border border-border px-5 py-2.5 text-sm transition-colors hover:bg-background"
+            className="border border-border px-5 py-2.5 text-sm transition-opacity hover:opacity-90"
           >
             기술블로그
           </Link>
